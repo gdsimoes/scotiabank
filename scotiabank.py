@@ -20,10 +20,12 @@ def add_transfer(transfer, list):
 list_of_months = []
 keys = ["date", "price"]
 
+# parse the bank file and save the data in list_of_months
 with open("pcbanking.ascii") as file:
     reader = csv.reader(file)
 
     for row in reader:
+        # only the first two fields are necessary
         date, price = row[:2]
 
         # remove day from date and put year in front
@@ -32,6 +34,7 @@ with open("pcbanking.ascii") as file:
         transfer = {"date": date, "price": float(price)}
         add_transfer(transfer, list_of_months)
 
+# generate a report and save it in the 'result.txt' file
 with open("result.txt", "w") as file:
     writer = csv.DictWriter(file, fieldnames=keys)
     writer.writeheader()
