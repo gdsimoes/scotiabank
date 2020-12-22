@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import csv
+import re
 
 
 def add_transfer(transfer, list):
@@ -29,7 +30,7 @@ with open("pcbanking.ascii") as file:
         date, price = row[:2]
 
         # remove day from date and put year in front
-        date = date.split('/')[2] + "/" + date.split('/')[0]
+        date = re.sub(r"(\d+)/(\d+)/(\d+)", r"\3/\1", date)
 
         transfer = {"date": date, "price": float(price)}
         add_transfer(transfer, list_of_months)
